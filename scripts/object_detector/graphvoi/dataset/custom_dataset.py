@@ -3,6 +3,7 @@ from pathlib import Path
 import torch.utils.data as torch_data
 import pickle
 import numpy as np
+import time
 
 from .calibration_kitti import Calibration
 from ..dataset.calibration_kitti import calib_to_matricies
@@ -61,16 +62,18 @@ class CustomKittiDataset(torch_data.Dataset):
             'calib': calib,
         }
 
+        if "image" in get_item_list:
+            input_dict['image'] = self.get_image(sample_idx)
+            
+        start_time = time.time()
         if "points" in get_item_list:
             points = self.get_lidar(sample_idx)
+            start_time = time.time()
             if self.dataset_cfg.FOV_POINTS_ONLY:
                 pts_rect = calib.lidar_to_rect(points[:, 0:3])
                 fov_flag = self.get_fov_flag(pts_rect, img_shape, calib)
                 points = points[fov_flag]
             input_dict['points'] = points
-
-        if "image" in get_item_list:
-            input_dict['image'] = self.get_image(sample_idx)
 
         if "calib_matricies" in get_item_list:
             input_dict["trans_lidar_to_cam"], input_dict["trans_cam_to_img"] = calib_to_matricies(calib)
@@ -99,6 +102,8 @@ class CustomKittiDataset(torch_data.Dataset):
                 continue
             data_dict[key] = np.array([data_dict[key]])
         data_dict['batch_size'] = 1
+        end_time = time.time()
+        data_dict['processing_time'] = end_time-start_time
         return data_dict
         
     

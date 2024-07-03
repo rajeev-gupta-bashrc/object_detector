@@ -26,6 +26,21 @@ from graphvoi.model import load_data_to_gpu
 # from pcdet.utils.common_utils import create_logger
 # from pcdet.models import load_data_to_gpu
 
+def print_model_info(model, logger):
+    total_params = sum(p.numel() for p in model.parameters())
+    trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    
+    logger.info(f"Total parameters: {total_params}")
+    logger.info(f"Trainable parameters: {trainable_params}")
+    logger.info(f"Non-trainable parameters: {total_params - trainable_params}")
+    
+    # Optionally, print more detailed information
+    # print("\nLayer-wise details:")
+    # for name, param in model.named_parameters():
+    #     if param.requires_grad:
+    #         print(f"{name}: {param.numel()} parameters")
+
+
 
 def prepare_model(model, ckpt_path_full, logger, to_cpu):   
     with torch.no_grad():
@@ -47,6 +62,8 @@ def test_output(model, data_input, logger):
     logger.info(pred_dicts)
     logger.info('ret_dicts')
     logger.info(ret_dict)
+    pred_info = {'inference_time' : end_time-start_time}
+    return pred_dicts, ret_dict, pred_info
 
 if __name__=='__main__':
     rospy.init_node('object_detector')
@@ -77,6 +94,38 @@ if __name__=='__main__':
     model = GraphRCNN(cfg.MODEL, num_class=len(cfg.CLASS_NAMES), dataset=dataset, logger=logger)
 
     # get a test object
-    data_input = dataset.__getitem__(3)
     prepare_model(model, module_path+ckpt_path, logger, to_cpu)
-    test_output(model, data_input, logger)
+    print_model_info(model, logger)
+    
+    ## single test 
+    # data_input = dataset.__getitem__(3)
+    # test_output(model, data_input, logger)
+    
+    ## user commanded test
+    # while(1):
+    #     try:
+    #         index = int(input('\n\nGive an index of data input, or neg decimal to break: '))
+    #     except Exception as E:
+    #         print('Unable to fetch index, try again....')
+    #         continue
+    #     if index < 0: break
+    #     data_input = dataset.__getitem__(index)
+    #     test_output(model, data_input, logger)
+      
+    ## random 10 test for avg time  
+    import random
+    random_numbers = [random.randint(0, 50) for _ in range(25)]
+    inference_time = []
+    processing_time = []
+    for index in random_numbers:
+        data_input = dataset.__getitem__(index)
+        processing_time.append(data_input['processing_time'])
+        pred_dict, ret_dict, pred_info = test_output(model, data_input, logger)
+        inference_time.append(pred_info['inference_time'])
+    # print(inference_time)
+    avg_inf = sum(inference_time)/len(inference_time)
+    avg_prs = sum(processing_time)/len(processing_time)
+    logger.info('average inference time: %f' % avg_inf)
+    logger.info('average processing time: %f' % avg_prs)
+
+    

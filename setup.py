@@ -3,7 +3,8 @@ from catkin_pkg.python_setup import generate_distutils_setup
 
 d = generate_distutils_setup(
     packages=['object_detector'],
-    package_dir={'': 'scripts'}
+    package_dir={'': 'src'}
+    # package_dir={'': 'scripts'}
 )
 
 setup(**d)

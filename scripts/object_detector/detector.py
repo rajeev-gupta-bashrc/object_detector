@@ -85,7 +85,7 @@ if __name__=='__main__':
     dataset = CustomKittiDataset(
             dataset_cfg=cfg.DATA_CONFIG,
             class_names=cfg.CLASS_NAMES,
-            root_path='/home/rajeev-gupta/sensyn_ws/src/GD-MAE/data/kitti',     #only to use direct data, 
+            root_path='/media/rajeev-gupta/Drive250/SENSYN_/data/kitti',     #only to use direct data, 
             training=False,
             logger=logger,
         )

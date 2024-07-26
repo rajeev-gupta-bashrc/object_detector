@@ -18,21 +18,24 @@ def calib_to_matricies(calib):
 
 def get_calib_from_file(calib_file):
     lines = open(calib_file).readlines()
-
-    obj = lines[2].strip().split(' ')[1:]
-    P2 = np.array(obj, dtype=np.float32)
-    obj = lines[3].strip().split(' ')[1:]
-    P3 = np.array(obj, dtype=np.float32)
-    obj = lines[4].strip().split(' ')[1:]
-    R0 = np.array(obj, dtype=np.float32)
-    obj = lines[5].strip().split(' ')[1:]
-    Tr_velo_to_cam = np.array(obj, dtype=np.float32)
-
-    return {'P2': P2.reshape(3, 4),
-            'P3': P3.reshape(3, 4),
+    
+    for line in lines:
+        line_l = line.strip().split(' ')
+        obj = line_l[1:]
+        header = line_l[0][:-1]
+        # print(line_l)
+        if header == 'P2':
+            P2 = np.array(obj, dtype=np.float32)
+        elif header == 'R0_rect':
+            R0 = np.array(obj, dtype=np.float32)
+        elif header == 'Tr_velo_to_cam':
+            Tr_velo_to_cam = np.array(obj, dtype=np.float32)
+            break
+    calib_dict =  {'P2': P2.reshape(3, 4),
             'R0': R0.reshape(3, 3),
             'Tr_velo2cam': Tr_velo_to_cam.reshape(3, 4)}
-
+    # print(calib_dict)
+    return calib_dict
 
 
 class Calibration(object):
@@ -41,10 +44,14 @@ class Calibration(object):
             calib = get_calib_from_file(calib_file)
         else:
             calib = calib_file
-
-        self.P2 = calib['P2']  # 3 x 4
-        self.R0 = calib['R0']  # 3 x 3
-        self.V2C = calib['Tr_velo2cam']  # 3 x 4
+        calib_keys = calib.keys()
+        for key in calib_keys:
+            if key[0] == 'P':
+                self.P2 = calib['P2']  # 3 x 4
+            elif key[0] == 'R':
+                self.R0 = calib['R0']  # 3 x 3
+            elif key[0] == 'T':
+                self.V2C = calib['Tr_velo2cam']  # 3 x 4
 
         # Camera intrinsics and extrinsics
         self.cu = self.P2[0, 2]

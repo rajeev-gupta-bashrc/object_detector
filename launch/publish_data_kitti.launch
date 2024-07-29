@@ -1,0 +1,3 @@
+<launch>
+    <node name="fake_kitti_publisher" pkg="object_detector" type="fake_kitti_publisher.py" output="screen"/>
+</launch>

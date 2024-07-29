@@ -1,0 +1,3 @@
+<launch>
+    <node name="fake_waymo_publisher" pkg="object_detector" type="fake_waymo_publisher.py" output="screen"/>
+</launch>

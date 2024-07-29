@@ -1,0 +1,3 @@
+<launch>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d /home/rajeev-gupta/sensyn_ws/src/object_detector/rviz/graphce_rviz.rviz" output="screen"/>
+</launch>

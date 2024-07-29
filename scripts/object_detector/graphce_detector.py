@@ -57,7 +57,8 @@ def build_dataset(cfg, default_args=None):
 
 class GraphCE_Detector():
     def __init__(self, to_cpu=False, 
-                    cfg_path = os.path.join(module_path, 'graphce/configs/waymo_centerpoint_voxelnet_graphrcnn_6epoch_freeze_copy.py')
+                    cfg_path = os.path.join(module_path, 'graphce/configs/waymo_centerpoint_voxelnet_graphrcnn_6epoch_freeze_copy.py'),
+                    num_cameras = 1
                  ) -> None:
         self.cfg_path = cfg_path
         self.cfg = self.get_cfg()
@@ -66,6 +67,7 @@ class GraphCE_Detector():
         self.to_cpu = to_cpu
         self.ckpt = None
         self.model = self.init_model()
+        self.num_cameras = num_cameras
         
         self.point_cloud = None
         self.bbox_markers = []
@@ -76,7 +78,7 @@ class GraphCE_Detector():
         
         rospy.init_node('graphce_object_detector')
         self.bbox_pub = rospy.Publisher('graphce_bbox_publisher', Marker, queue_size=10)
-        self.image_pub = rospy.Publisher('graphce_annotated_image', Image, queue_size=5)
+        self.image_pub = [rospy.Publisher(f'graphce_annotated_image_camera{camera_number}', Image, queue_size=5) for camera_number in range(self.num_cameras)]
         self.point_cloud_pub = rospy.Publisher('point_cloud', PointCloud2, queue_size=5)
         
         self.publisher_thread_all = [
@@ -118,7 +120,7 @@ class GraphCE_Detector():
                 # rospy.loginfo('sending images')
                 self.image_pub_start_time = time.time()
                 for i in range(len(self.image_with_boxes)):
-                    self.image_pub.publish(self.image_with_boxes[i])
+                    self.image_pub[i].publish(self.image_with_boxes[i])
                 self.image_pub_end_time = time.time()
                 rospy.loginfo('Image published at %f, elapsed time: %f ' % (self.image_pub_start_time,
                                                                              self.image_pub_end_time-self.image_pub_start_time) )
@@ -296,8 +298,8 @@ class GraphCE_Detector():
 
 
 if __name__=='__main__':
-    detector = GraphCE_Detector(to_cpu=False)
+    to_cpu = rospy.get_param('~to_cpu', False)
+    detector = GraphCE_Detector(to_cpu, num_cameras=5)
     detector.start_subscribing()
     detector.start_threading_publishers()
     rospy.spin()
-    

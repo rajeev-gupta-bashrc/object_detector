@@ -2,7 +2,7 @@ import logging
 from abc import ABCMeta, abstractmethod
 
 import numpy as np
-import pycocotools.mask as maskUtils
+# import pycocotools.mask as maskUtils
 import torch.nn as nn
 from det3d import torchie
 

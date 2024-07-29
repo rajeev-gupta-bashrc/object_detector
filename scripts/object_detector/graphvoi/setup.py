@@ -24,11 +24,11 @@ if __name__ == '__main__':
     setup(
         name='object_detector',
         install_requires=[
-            'numpy',
-            'easydict',
-            'pyyaml',
-            'tqdm',
-            'tensorboardX',
+            # 'numpy',
+            # 'easydict',
+            # 'pyyaml',
+            # 'tqdm',
+            # 'tensorboardX',
         ],
 
         packages=find_packages(exclude=['tools', 'data', 'output']),

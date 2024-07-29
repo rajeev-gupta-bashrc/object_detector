@@ -14,4 +14,4 @@ version.py
 .vscode
 ./data
 videos
-
+_*.txt

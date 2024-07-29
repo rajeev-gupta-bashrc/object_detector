@@ -46,13 +46,15 @@ def get_calib_from_file(calib_file):
             rotation_z = R.from_euler('z', -90, degrees=True).as_matrix()
             rotation_x = R.from_euler('x', -90, degrees=True).as_matrix()
             RTN = rotation_z @ rotation_x
-            Tr_velo_to_cam[:3, :3] = RTN
+            Tr_velo_to_cam[:3, :3] = Tr_velo_to_cam[:3, :3] @ RTN
             Tr_velo_to_cam = get_inverse_in_same_shape(Tr_velo_to_cam)
             calib_dict['Tr_velo_to_cam'].append(Tr_velo_to_cam)
         elif obj[0][0]=='R':
             R0 = np.array(obj[1:], dtype=np.float32).reshape(3, 3)
             calib_dict['R0'] = R0
     # print(calib_dict)
+    R0 = calib_dict['R0']
+    calib_dict['R0'] = [R0 for i in range(len(calib_dict['P_']))]
     return calib_dict
 
 

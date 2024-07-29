@@ -34,7 +34,7 @@ class FakeWaymoData():
         lidar[:, 3] = np.tanh(lidar[:, 3])
         return lidar
 
-    def create_waymo_message(self, points, image_all, calib_dict):
+    def create_waymo_message(self, points, image_all, calib_dict_all):
         bridge = CvBridge()
         msg = ImagePointCloudCalib()
         '''
@@ -64,9 +64,9 @@ class FakeWaymoData():
         msg.image_all = [bridge.cv2_to_imgmsg(image, encoding="bgr8") for image in image_all]
         # msg.image_all = bridge.cv2_to_imgmsg(image_all[0], encoding="bgr8")
 
-        msg.projection_all = np.array(calib_dict['P_']).flatten().astype(np.float32)
-        msg.transformation_all = np.array(calib_dict['Tr_velo_to_cam']).flatten().astype(np.float32)
-        msg.rectification_all = np.array(calib_dict['R0']).flatten().astype(np.float32)
+        msg.projection_all = np.array(calib_dict_all['P_']).flatten().astype(np.float32)
+        msg.transformation_all = np.array(calib_dict_all['Tr_velo_to_cam']).flatten().astype(np.float32)
+        msg.rectification_all = np.array(calib_dict_all['R0']).flatten().astype(np.float32)
         
         msg.projection_rows = 3
         msg.projection_cols = 4
@@ -79,14 +79,14 @@ class FakeWaymoData():
 
     def generate_data_from_index(self, index):
         calib_path = os.path.join(self.data_path , 'calib', f'{index:06d}.txt')
-        calib_dict = self.get_calib_dict(calib_path)
+        calib_dict_all = self.get_calib_dict(calib_path)
         lidar_path = os.path.join(self.data_path,  'velodyne', f'{index:06d}.bin')
         points = self.get_lidar(lidar_path)
         image_all = []
         for camera in self.cam_map[:self.num_cameras]:
             image_path = os.path.join(self.data_path , 'image', camera, f'{index:06d}.png')
             image_all.append(self.get_image(image_path))
-        return points, image_all, calib_dict
+        return points, image_all, calib_dict_all
     
     
     
@@ -103,7 +103,7 @@ if __name__ == '__main__':
     ## Dataset
     which_segment = 2
     waymo_data = FakeWaymoData(
-        data_path=data_path+segment_folders[which_segment], num_cameras=1
+        data_path=data_path+segment_folders[which_segment], num_cameras=5
     )
     ## generate one data
     # points, image_all, calib_dict = waymo_data.generate_data_from_index(index=0)
@@ -119,7 +119,7 @@ if __name__ == '__main__':
         for frame_index in range(num_frames):
             rospy.loginfo('Publishing frame index: %d' % frame_index)
             points, image_all, calib_dict = waymo_data.generate_data_from_index(index=frame_index)
-            msg = waymo_data.create_waymo_message(points=points, image_all=image_all, calib_dict=calib_dict)
+            msg = waymo_data.create_waymo_message(points=points, image_all=image_all, calib_dict_all=calib_dict)
             pub.publish(msg)
             rate.sleep()
         

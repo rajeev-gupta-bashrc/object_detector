@@ -284,7 +284,8 @@ class GraphVoI_Detector():
 
 
 if __name__=='__main__':
-    detector = GraphVoI_Detector(to_cpu=False)
+    to_cpu = rospy.get_param('~to_cpu', False)
+    detector = GraphVoI_Detector(to_cpu)
     detector.start_subscribing()
     detector.start_threading_publishers()
     rospy.spin()

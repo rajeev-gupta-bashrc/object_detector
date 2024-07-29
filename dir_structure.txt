@@ -1,0 +1,61 @@
+obj_det_ws
+├── src
+    ├── data
+        ├── kitti
+            ├── testing
+                ├── calib
+                    ├── 000000.txt 
+                    ├── ...
+                ├── image
+                    ├── 000000.png 
+                    ├── ...
+                ├── velodyne
+                    ├── 000000.bin 
+                    ├── ...
+            ├── training
+                ├── same as testing ...
+        ├── waymo
+            ├── segment-*
+                ├── calib
+                    ├── 000000.txt 
+                    ├── ...
+                ├── image
+                    ├── 000000.png 
+                    ├── ...
+                ├── velodyne
+                    ├── 000000.bin 
+                    ├── ...
+            ├── segment-* ...
+
+
+    ├── object_detector
+        ├── launch
+        ├── Readme.md
+        ├── src
+            ├── object_detector
+                ├── __init__.py
+                ├── import_me.py
+                ├── __pycache__
+                    ├── import_me.cpython-38.pyc
+        ├── CMakeLists.txt
+        ├── msg
+            ├── ImagePointCloudCalib.msg
+        ├── .vscode
+            ├── c_cpp_properties.json
+            ├── settings.json
+        ├── setup.py
+        ├── rviz
+            ├── graphce_rviz.rviz
+        ├── pip_list.txt
+        ├── scripts
+            ├── object_detector
+                ├── __init__.py
+                ├── graphce
+                ├── graphvoi
+                ├── detector.py
+                ├── graphce_detector.py
+                ├── graphvoi_detector.py
+                ├── fake_kitti_publisher.py
+                ├── fake_waymo_publisher.py
+        ├── package.xml
+        ├── .gitignore

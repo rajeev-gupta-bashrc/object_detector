@@ -11,6 +11,8 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   roscpp
   sensor_msgs
+  std_msgs
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -73,6 +75,16 @@ catkin_python_setup()
 #   std_msgs  # Or other packages containing msgs
 # )
 
+add_message_files(
+  FILES
+  ImagePointCloudCalib.msg
+)
+
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+  sensor_msgs
+)
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
 ################################################
@@ -107,6 +119,7 @@ catkin_package(
 #  LIBRARIES object_detector
 #  CATKIN_DEPENDS other_catkin_pkg
 #  DEPENDS system_lib
+  CATKIN_DEPENDS message_runtime std_msgs sensor_msgs
 )
 
 ###########
@@ -126,7 +139,12 @@ include_directories(
 # )
 
 
-catkin_install_python(PROGRAMS scripts/object_detector/detector.py
+catkin_install_python(PROGRAMS 
+  scripts/object_detector/detector.py
+  scripts/object_detector/graphce_detector.py
+  scripts/object_detector/fake_waymo_publisher.py
+  scripts/object_detector/graphvoi_detector.py
+  scripts/object_detector/fake_kitti_publisher.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 ## Add cmake target dependencies of the library

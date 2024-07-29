@@ -1,0 +1,5 @@
+<launch>
+<arg name="to_cpu" default="False"/>
+    <node name="graphvoi_detector" pkg="object_detector" type="graphvoi_detector.py" output="screen"/>
+        <param name="to_cpu" value="$(arg to_cpu)"/>
+</launch>

@@ -29,7 +29,7 @@ Download left color images, calibration matrices, and velodyne data for object d
 
 KITTI calibration files include extrinsic, intrinsic, and rectification matrices.
 
-![Object Detector](https://github.com/rajeev-gupta-bashrc/OBJECT_DETECTOR/blob/main/images/Kitti_transforms.jpg)
+![Object Detector](https://github.com/rajeev-gupta-bashrc/OBJECT_DETECTOR/blob/master/images/Kitti_transforms.png)
 
 ### LiDAR to Camera Transform
 

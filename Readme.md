@@ -93,7 +93,7 @@ The package follows a general ROS structure with scripts in the `scripts` folder
 ### GraphCE
 
 - [GitHub Repository](https://github.com/Nightmare-n/GraphRCNN)
-- Dataset: Waymo
+- Dataset: Waymo [Readme](https://github.com/rajeev-gupta-bashrc/OBJECT_DETECTOR/blob/master/scripts/object_detector/graphce/waymo_data.md)
 - Input: PointCloud (PCD) only
 - Output: BBOX, visualization on Image and PCD in Rviz
 - Detection Classes: `['VEHICLE', 'PEDESTRIAN', 'CYCLIST']` <==> `[0, 1, 2]`
@@ -101,7 +101,8 @@ The package follows a general ROS structure with scripts in the `scripts` folder
 
 ### GraphVoI
 
-- Dataset: KITTI
+- [GitHub Repository](https://github.com/Nightmare-n/GD-MAE)
+- Dataset: KITTI [Readme](https://github.com/rajeev-gupta-bashrc/OBJECT_DETECTOR/blob/master/scripts/object_detector/graphvoi/kitti_data.md)
 - Input: PointCloud (PCD) + Image
 - Output: BBOX, visualization on Image and PCD in Rviz
 - Detection Classes: `['VEHICLE']` <==> `[0]`
@@ -178,7 +179,7 @@ In Rviz, choose the available topics for the respective models. You should see t
 
 The node-topic structure can be visualized using `rqt_graph`.
 
-![Object Detector](https://github.com/rajeev-gupta-bashrc/OBJECT_DETECTOR/blob/main/images/rqt_graph.png)
+![Object Detector](https://github.com/rajeev-gupta-bashrc/OBJECT_DETECTOR/blob/master/images/rqt_graph.png)
 
 
 - `fake_waymo_publisher` reads data from a local path and combines point-cloud, image, and calibration data into a custom msg type, then publishes it.
@@ -188,3 +189,12 @@ The node-topic structure can be visualized using `rqt_graph`.
 Various parameters like fps, num_cameras, etc., can be changed.
 
 The structure for the KITTI detector is similar.
+
+## References:
+[GraphRCNN: Towards Accurate 3D Object Detection with Semantic-Decorated Local Graph](https://arxiv.org/pdf/2208.03624)
+
+## Acknowledgement
+This project is mainly based on the following codebases. Thanks for their great works!
+
+[GraphRCNN](https://github.com/Nightmare-n/GraphRCNN)
+[GD-MAE/GraphVoI](https://github.com/Nightmare-n/GD-MAE)

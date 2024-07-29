@@ -35,7 +35,7 @@ The dataset contains `.tfrecord` files, each including 196 continuous frames of 
 ## Data Extraction
 While Waymo provides tutorials for extracting images, point clouds, and calibration data, they don't offer complete data extraction methods (e.g., intensities and other point-cloud features). A Python notebook has been created to extract the data and store it in KITTI dataset format.
 
-![Object Detector](https://github.com/rajeev-gupta-bashrc/OBJECT_DETECTOR/blob/main/images/waymo_transforms.png)
+![Object Detector](https://github.com/rajeev-gupta-bashrc/OBJECT_DETECTOR/blob/master/images/waymo_transforms.png)
 
 ## Calibration Notes
 - In the Waymo tfrecord, the rotation from LiDAR to camera frame is actually from camera to LiDAR, while the translational data is correct.

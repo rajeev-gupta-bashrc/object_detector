@@ -82,7 +82,7 @@ obj_det_ws
 
 ![Object Detector](https://github.com/rajeev-gupta-bashrc/OBJECT_DETECTOR/blob/master/images/graphce_demo.gif)
 
-Please go to [videos/graphce_demo_video.mp4](https://github.com/rajeev-gupta-bashrc/OBJECT_DETECTOR/blob/master/videos/graphce_demo_video.gif) for full sequence video.
+Please go to [videos/graphce_demo_video.mp4](https://github.com/rajeev-gupta-bashrc/OBJECT_DETECTOR/blob/master/videos/graphce_demo_video.mp4) for full sequence video.
 
 ## Prerequisites
 

@@ -13,14 +13,14 @@ class_names = list(itertools.chain(*[t["class_names"] for t in tasks]))
 target_assigner = dict(
     tasks=tasks,
 )
-
+home_dir = '/home/rajeev-gupta/'
 # model settings
 model = dict(
     type='TwoStageDetector',
     first_stage_cfg=dict(
         type="VoxelNet",
         # pretrained='/home/rajeev-gupta/sensyn_ws/src/GraphRCNN/work_dirs/waymo_centerpoint_voxelnet_graphrcnn_6epoch_freeze/latest.pth',
-        pretrained='/media/rajeev-gupta/Drive250/SENSYN_/from_sensyn_ws_src/Honghui_weights/centerpoint_epoch_36.pth',
+        pretrained=home_dir+'sensyn_ws/src/object_detector/scripts/object_detector/graphce/ckpts/centerpoint_epoch_36.pth',
         reader=dict(
             type="DynamicVoxelEncoder",
             # pc_range=[-75.2, -75.2, -2, 75.2, 75.2, 4],
@@ -262,6 +262,6 @@ device_ids = [0]
 dist_params = dict(backend="nccl", init_method="env://")
 log_level = "INFO"
 work_dir = './work_dirs/{}/'.format(__file__[__file__.rfind('/') + 1:-3])
-load_from = '/media/rajeev-gupta/Drive250/SENSYN_/from_sensyn_ws_src/Honghui_weights/graphrcnn_epoch_6.pth' 
+load_from = home_dir+'sensyn_ws/src/object_detector/scripts/object_detector/graphce/ckpts/graphrcnn_epoch_6.pth' 
 resume_from = None
 workflow = [('train', 1)]

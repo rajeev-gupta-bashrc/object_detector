@@ -104,7 +104,14 @@ Please go to [videos/graphvoi_demo_video_5fps.mp4](https://github.com/rajeev-gup
 - Ubuntu 20.04
 - Python version 3.8.10 (default in Ubuntu 20)
 - [ROS Noetic](https://wiki.ros.org/noetic/Installation/Ubuntu)
-- CUDA version 11.1
+- CUDA (if using GPU): [follow official guide for installation](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=20.04&target_type=deb_local)
+- Don't forget to add to paths
+
+```
+export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+```
+
 
 ## Package Structure
 

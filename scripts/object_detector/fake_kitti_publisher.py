@@ -92,7 +92,7 @@ class FakeKittiData():
 if __name__ == '__main__':
     rospy.init_node('fake_kitti_message_publisher')
     pub = rospy.Publisher('kitti_data_topic', ImagePointCloudCalib, queue_size=10)
-    fps = 2
+    fps = 5
     rate = rospy.Rate(fps) 
     data_path = '/media/rajeev-gupta/Drive250/SENSYN_/data/kitti/'
     segment_folders = ['testing', 'training']

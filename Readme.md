@@ -80,9 +80,24 @@ obj_det_ws
 
 ## Demo:
 
-![Object Detector](https://github.com/rajeev-gupta-bashrc/OBJECT_DETECTOR/blob/master/images/graphce_demo.gif)
+### Graphce (on waymo dataset)
+![Object Detector](https://github.com/rajeev-gupta-bashrc/OBJECT_DETECTOR/blob/master/images/graphce_demo_3fps.gif)
+- fps = 3
+- GPU usage = 2996 MB
+- Model Runtime = 0.16324 seconds
+- Overall processing = 0.28576 seconds
 
-Please go to [videos/graphce_demo_video.mp4](https://github.com/rajeev-gupta-bashrc/OBJECT_DETECTOR/blob/master/videos/graphce_demo_video.mp4) for full sequence video.
+### Graphvoi (on kitti dataset)
+![Object Detector](https://github.com/rajeev-gupta-bashrc/OBJECT_DETECTOR/blob/master/images/graphvoi_demo_5fps.gif)
+- fps = 5
+- GPU usage = 2464 MB
+- Model Runtime = 0.09785 seconds
+- Overall processing = 0.19845 seconds
+
+
+
+Please go to [videos/graphce_demo_video.mp4](https://github.com/rajeev-gupta-bashrc/OBJECT_DETECTOR/blob/master/videos/graphce_demo_video_3fps.mp4) for full sequence video.
+Please go to [videos/graphvoi_demo_video_5fps.mp4](https://github.com/rajeev-gupta-bashrc/OBJECT_DETECTOR/blob/master/videos/graphvoi_demo_video_5fps.mp4) for full sequence video.
 
 ## Prerequisites
 

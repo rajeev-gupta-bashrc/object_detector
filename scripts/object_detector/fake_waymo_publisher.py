@@ -93,7 +93,7 @@ class FakeWaymoData():
 if __name__ == '__main__':
     rospy.init_node('fake_waymo_message_publisher')
     pub = rospy.Publisher('waymo_data_topic', ImagePointCloudCalib, queue_size=10)
-    fps = 2
+    fps = 3
     rate = rospy.Rate(fps) 
     data_path = '/media/rajeev-gupta/Drive250/SENSYN_/from_sensyn_ws_src/GraphRCNN/Ventoy/waymo_data/data/waymo/kitti/raw_data/'
     segment_folders = ['segment-12974838039736660070_4586_990_4606_990_with_camera_label',
